@@ -16,8 +16,8 @@ audio = SimlishTTS(speaker_promt_path="female_voice.mp3", save_path="/home/ekh/S
 async def cmd_start(message: types.Message):
     translate_answer = translate(message.text)
     audio_file_path = audio.generate(text=translate_answer)
-    with open(audio_file_path, 'rb') as audio_file:
-        await message.answer_voice(voice=audio_file, caption="Ваше сообщение на симлише:")
+
+    await message.answer_voice(voice=types.InputFile(audio_file_path), caption="Ваше сообщение на симлише:")
 async def main():
     await dp.start_polling(bot)
 
