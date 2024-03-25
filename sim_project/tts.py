@@ -13,4 +13,4 @@ class SimlishTTS:
                 file_path=file_name,
                 speaker_wav=self.speaker_promt_path,
                 language="en")
-        print(file_name)
+        return file_name
