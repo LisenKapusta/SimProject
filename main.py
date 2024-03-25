@@ -10,10 +10,13 @@ from sim_project.gpt_translate import SimlishTranslate
 bot = Bot(token=os.environ["BOT_API"])
 dp = Dispatcher()
 
-translate_answer = SimlishTranslate()
+translate = SimlishTranslate()
+audio = SimlishTTS()
 @dp.message()
 async def cmd_start(message: types.Message):
-    await message.answer(translate_answer(message.text))
+    translate_answer = translate(message.text)
+    audio = SimlishTTS(speaker_promt_path="raw_sample.wav", save_path="/home/ekh/SimProject/sim_project/", text=translate_answer)
+    await message.answer(audio.generate())
 async def main():
     await dp.start_polling(bot)
 
