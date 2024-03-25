@@ -13,7 +13,8 @@ dp = Dispatcher()
 translate_answer = SimlishTranslate()
 @dp.message()
 async def cmd_start(message: types.Message):
-    await message.answer(translate_answer(message))
+    #await message.answer(translate_answer(message))
+    await message.answer(message)
 async def main():
     await dp.start_polling(bot)
 
