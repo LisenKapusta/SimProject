@@ -11,12 +11,12 @@ bot = Bot(token=os.environ["BOT_API"])
 dp = Dispatcher()
 
 translate = SimlishTranslate()
-audio = SimlishTTS()
+audio = SimlishTTS(speaker_promt_path="raw_sample.wav", save_path="/home/ekh/SimProject/sim_project/", )
 @dp.message()
 async def cmd_start(message: types.Message):
     translate_answer = translate(message.text)
-    audio = SimlishTTS(speaker_promt_path="raw_sample.wav", save_path="/home/ekh/SimProject/sim_project/", text=translate_answer)
-    await message.answer(audio.generate())
+    audio_file = audio.generate(text=translate_answer)
+    await message.answer(audio_file)
 async def main():
     await dp.start_polling(bot)
 

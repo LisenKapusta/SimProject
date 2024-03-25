@@ -158,7 +158,7 @@ a bad example  a translate:bored as I am.: glebe aba I am.
         self._prompt_2 = """Enter a sentence in English"""
         self._model_name = "gpt-3.5-turbo"
 
-    def predict(self, message: str) -> Tuple[str, str]:
+    def predict(self, message: str) -> str:
         message_history = [
             {"role": "user", "content": self._prompt},
             {"role": "assistant", "content": self._prompt_2},
@@ -171,7 +171,7 @@ a bad example  a translate:bored as I am.: glebe aba I am.
         )
         return assistant_message.choices[0].message.content
 
-    def __call__(self, message: str) -> Tuple[str, str]:
+    def __call__(self, message: str) -> str:
         """
         Translate English phrase to Simlish.
 
