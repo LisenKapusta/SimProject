@@ -1,6 +1,8 @@
 import os
 import asyncio
 import logging
+
+import aiogram.methods.send_voice
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
 from sim_project.tts import SimlishTTS
@@ -15,10 +17,15 @@ audio = SimlishTTS(speaker_promt_path="female_voice.mp3", save_path="/home/ekh/S
 @dp.message()
 async def cmd_start(message: types.Message):
     translate_answer = translate(message.text)
-    audio_file = audio.generate(text=translate_answer)
-    audio_file_path = types.InputFile(audio_file)
-
-    await message.answer_voice(voice=audio_file_path, caption="Ваше сообщение на симлише:")
+    audio_file_path = audio.generate(text=translate_answer)
+    #audio_file = types.voice.Voice(file_id=audio_file_path)
+    audio_file = types.audio.Audio(file_id=audio_file_path)
+    #audio_file_path = types.InputFile(audio_file)
+    #with open(audio_file_path, mode="rb") as file:
+        #binary_content = file.read()
+    #await message.answer_voice(voice=binary_content, caption="Ваше сообщение на симлише:")
+    #message.reply(binary_content)
+    await aiogram.methods.send_voice.SendVoice(voice=audio_file)
 async def main():
     await dp.start_polling(bot)
 
