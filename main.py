@@ -19,11 +19,8 @@ audio = SimlishTTS(speaker_promt_path="female_voice.mp3", save_path="/home/ekh/S
 async def echo_voice(message: types.Message):
     translate_answer = translate(message.text)
     audio_file_path = audio.generate(text=translate_answer)
-    audio_file_path.save("voice.mp3")
+    #audio_file_path.save("voice.mp3")
     voice_file = types.input_file.InputFile(audio_file_path)
-    #audio_file = types.input_file.InputFile(filenam  e=audio_file_path)
-    #with open(audio_file_path, 'rb') as audio_file:
-        #await bot.send_voice(chat_id=message.chat.id, voice=voice)
 
     await message.answer_voice(voice_file)
 async def main():
