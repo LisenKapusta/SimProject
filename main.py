@@ -1,6 +1,7 @@
 import os
 import asyncio
 import logging
+from pathlib import Path
 
 import aiogram.methods.send_voice
 from aiogram import Bot, Dispatcher, types
@@ -19,9 +20,14 @@ async def cmd_start(message: types.Message):
     translate_answer = translate(message.text)
     audio_file_path = audio.generate(text=translate_answer)
 
-    audio_file = types.input_file.InputFile(filename=audio_file_path)
 
-    await message.answer_voice(voice=audio_file)
+
+    voice = types.input_file.InputFile(audio_file_path)
+    #audio_file = types.input_file.InputFile(filenam  e=audio_file_path)
+    with open(audio_file_path, 'rb') as audio_file:
+        await bot.send_voice(chat_id=message.chat.id, voice=voice)
+
+    #await message.answer_voice(voice=voice)
 async def main():
     await dp.start_polling(bot)
 
