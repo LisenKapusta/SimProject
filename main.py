@@ -1,7 +1,5 @@
 import os
 import asyncio
-import logging
-from pathlib import Path
 import aiogram.methods.send_voice
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
@@ -9,7 +7,6 @@ import librosa
 import numpy as np
 from scipy.io import wavfile
 import noisereduce as nr
-import soundfile as sf
 import soundfile as sf
 
 
