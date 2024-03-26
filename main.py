@@ -2,10 +2,17 @@ import os
 import asyncio
 import logging
 from pathlib import Path
-
 import aiogram.methods.send_voice
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
+import librosa
+import numpy as np
+from scipy.io import wavfile
+import noisereduce as nr
+import soundfile as sf
+import soundfile as sf
+
+
 from sim_project.tts import SimlishTTS
 from sim_project.gpt_translate import SimlishTranslate
 
@@ -19,9 +26,11 @@ audio = SimlishTTS(speaker_promt_path="female_voice.mp3", save_path="/home/ekh/S
 async def echo_voice(message: types.Message):
     translate_answer = translate(message.text)
     audio_file_path = audio.generate(text=translate_answer)
-    #audio_file_path.save("voice.mp3")
-    voice_file = types.FSInputFile(audio_file_path)
+    y, sr = librosa.load(audio_file_path, sr=None)
 
+    reduced_noise_stationary = nr.reduce_noise(y=y, y_noise=None, sr=sr, n_std_thresh_stationary=1.5,
+                                               stationary=False)
+    voice_file = types.FSInputFile(reduced_noise_stationary)
     await message.answer_voice(voice_file)
 async def main():
     await dp.start_polling(bot)
