@@ -16,18 +16,16 @@ dp = Dispatcher()
 translate = SimlishTranslate()
 audio = SimlishTTS(speaker_promt_path="female_voice.mp3", save_path="/home/ekh/SimProject/sim_project/", )
 @dp.message()
-async def cmd_start(message: types.Message):
+async def echo_voice(message: types.Message):
     translate_answer = translate(message.text)
     audio_file_path = audio.generate(text=translate_answer)
-
-
-
-    voice = types.input_file.InputFile(audio_file_path)
+    audio_file_path.save("voice.mp3")
+    voice_file = types.input_file.InputFile(audio_file_path)
     #audio_file = types.input_file.InputFile(filenam  e=audio_file_path)
-    with open(audio_file_path, 'rb') as audio_file:
-        await bot.send_voice(chat_id=message.chat.id, voice=voice)
+    #with open(audio_file_path, 'rb') as audio_file:
+        #await bot.send_voice(chat_id=message.chat.id, voice=voice)
 
-    #await message.answer_voice(voice=voice)
+    await message.answer_voice(voice_file)
 async def main():
     await dp.start_polling(bot)
 
