@@ -25,7 +25,7 @@ async def echo_voice(message: types.Message):
     audio_file_path = audio.generate(text=translate_answer)
     y, sr = librosa.load(audio_file_path, sr=None)
 
-    reduced_noise_stationary = nr.reduce_noise(y=y, y_noise=None, sr=sr, n_std_thresh_stationary=1.5,
+    reduced_noise_stationary = nr.reduce_noise(y=y, y_noise="bad-connection-plug-62552.mp3", sr=sr, n_std_thresh_stationary=1.5,
                                                stationary=False)
     sf.write('cleaned_audio_file_stationary.wav', reduced_noise_stationary, sr)
     voice_file = types.FSInputFile('cleaned_audio_file_stationary.wav')
