@@ -27,7 +27,8 @@ async def echo_voice(message: types.Message):
 
     reduced_noise_stationary = nr.reduce_noise(y=y, y_noise=None, sr=sr, n_std_thresh_stationary=1.5,
                                                stationary=False)
-    voice_file = types.FSInputFile(reduced_noise_stationary)
+    sf.write('cleaned_audio_file_stationary.wav', reduced_noise_stationary, sr)
+    voice_file = types.FSInputFile('cleaned_audio_file_stationary.wav')
     await message.answer_voice(voice_file)
 async def main():
     await dp.start_polling(bot)
