@@ -20,7 +20,7 @@ async def echo_voice(message: types.Message):
     translate_answer = translate(message.text)
     audio_file_path = audio.generate(text=translate_answer)
     #audio_file_path.save("voice.mp3")
-    voice_file = types.input_file.InputFile(audio_file_path)
+    voice_file = types.FSInputFile(audio_file_path)
 
     await message.answer_voice(voice_file)
 async def main():
