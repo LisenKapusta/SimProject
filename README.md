@@ -33,8 +33,8 @@ GPT-Based translation to Simlish language in telegram bot
 2. Export OpenAI API Key & Telegram bot API Key
 3. 
 ```bash
-export OPENAI_API_KEY = ...
-export ...
+export OPENAI_API_KEY="your_token"
+export BOT_API="your_token"
 ```
 3. Run bot
 ```bash
