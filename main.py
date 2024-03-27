@@ -18,7 +18,7 @@ bot = Bot(token=os.environ["BOT_API"])
 dp = Dispatcher()
 
 translate = SimlishTranslate()
-audio = SimlishTTS(speaker_promt_path="female_voice.mp3", save_path="/home/ekh/SimProject/sim_project/", )
+audio = SimlishTTS(speaker_promt_path="female_voice.mp3", save_path="./tts_cache/, )
 @dp.message()
 async def echo_voice(message: types.Message):
     translate_answer = translate(message.text)
